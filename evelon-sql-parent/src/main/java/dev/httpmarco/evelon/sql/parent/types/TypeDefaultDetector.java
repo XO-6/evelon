@@ -25,6 +25,7 @@ public final class TypeDefaultDetector implements TypeDetector {
         this.overwrite(Type.of("CHAR", char.class, Character.class));
         this.overwrite(Type.of("UUID", UUID.class));
         this.overwrite(Type.of("TEXT", String.class));
+        this.overwrite(Type.of("TIMESTAMP", java.sql.Timestamp.class));
 
         // enums has a collection of all elements as string behind the name, we must duplicate every enum type
         this.overwrite(TypeModel.of(it -> "ENUM('" + String.join("', '", Arrays.stream(((Class<? extends Enum<?>>) it).getEnumConstants()).map(Enum::name).toList()) + "')", entry -> entry.clazz().isEnum()));

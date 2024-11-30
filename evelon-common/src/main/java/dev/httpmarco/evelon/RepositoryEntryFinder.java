@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
@@ -23,6 +24,10 @@ public final class RepositoryEntryFinder {
 
         if (JavaUtils.JAVA_ELEMENTS.contains(clazz) || clazz.isEnum() || clazz.isPrimitive() || clazz.equals(UUID.class)) {
             return new RepositoryEntry(id, clazz, parent);
+        }
+
+        if(Timestamp.class.isAssignableFrom(clazz)) {
+            return new RepositoryEntry(id, Timestamp.class, parent);
         }
 
         if (Map.class.isAssignableFrom(clazz)) {

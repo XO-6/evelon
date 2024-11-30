@@ -5,6 +5,7 @@ import dev.httpmarco.evelon.RepositoryEntry;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ public final class TypeDefaultDetector implements TypeDetector {
         this.overwrite(Type.of("CHAR", char.class, Character.class));
         this.overwrite(Type.of("UUID", UUID.class));
         this.overwrite(Type.of("TEXT", String.class));
-        this.overwrite(Type.of("TIMESTAMP", java.sql.Timestamp.class));
+        this.overwrite(Type.of("TIMESTAMP", Timestamp.class));
 
         // enums has a collection of all elements as string behind the name, we must duplicate every enum type
         this.overwrite(TypeModel.of(it -> "ENUM('" + String.join("', '", Arrays.stream(((Class<? extends Enum<?>>) it).getEnumConstants()).map(Enum::name).toList()) + "')", entry -> entry.clazz().isEnum()));
